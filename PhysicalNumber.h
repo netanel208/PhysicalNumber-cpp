@@ -35,7 +35,7 @@ namespace ariel{
 
         //friend methodes
         inline friend ostream& operator<< (ostream& os, const PhysicalNumber& other);
-        friend istream& operator>> (istream& os, const PhysicalNumber& other);
+        inline friend istream& operator>> (istream& os, PhysicalNumber& other);
         
 
         private:
@@ -72,7 +72,51 @@ inline ostream& operator<< (ostream& os, const PhysicalNumber& other) {
             break;
         }
     return (os << other.amount <<"[" << unit << "]"<< endl);
-}
+    }
 
-// istream& operator>> (istream& is, const PhysicalNumber& other){}
+static istream& getAndCheckNextCharIs(istream& input, char expectedChar) {
+    char actualChar;
+    input >> actualChar;
+    if (!input) return input;
+
+    if (actualChar!=expectedChar) 
+        // failbit is for format error
+        input.setstate(ios::failbit);
+    return input;
+}
+    inline istream& operator>> (istream& input, PhysicalNumber& other){
+        int amount;
+        string unit;
+        Unit u;
+
+
+        // remember place for rewinding
+        ios::pos_type startPosition = input.tellg();
+
+        // auto splitText = text | view::split(' ');
+
+        if ( (!(input >> amount))                 ||
+            (!getAndCheckNextCharIs(input,'[')) ||
+            (!(input >> unit))                 ||
+            (!(getAndCheckNextCharIs(input,']'))) ) {
+
+            // rewind on error
+            auto errorState = input.rdstate(); // remember error state
+            input.clear(); // clear error so seekg will work
+            input.seekg(startPosition); // rewind
+            input.clear(errorState); // set back the error flag
+
+        } else {
+            cout << "dudu"<<endl;
+            other.amount = amount;
+            other.unit = Unit::KM;
+            //convert from string to unit (create switch case function)
+        }
+
+        return input;
+    }
+
+    
+
+    
 }
