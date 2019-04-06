@@ -4,6 +4,6 @@ using namespace std;
 
 namespace ariel{
     enum class Unit{
-        CM,M,KM,SEC,MIN,HOUR,G,KG,TON
+        CM=1,M,KM,SEC,MIN,HOUR,G,KG,TON
     };
 }
