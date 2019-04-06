@@ -46,8 +46,5 @@ namespace ariel{
 
         double amount;
         Unit unit;
-        void converter(){
-
-        }
     };
 }
