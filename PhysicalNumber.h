@@ -15,7 +15,6 @@ namespace ariel{
         PhysicalNumber(double amount, Unit unit){
             this->amount = amount;
             this->unit = unit;
-            converter();
         }
 
         //operators
