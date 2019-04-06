@@ -271,12 +271,12 @@ int main() {
     .CHECK_OUTPUT(y,"20[hour]")
     .CHECK_OK(istringstream("5[m]") >> z)
     .CHECK_OUTPUT(z,"5[m]")
-
-
-    .setname("Input - Incompatible dimensions")
-    .CHECK_THROWS(istringstream("700[kg]") >> y)
-    .CHECK_THROWS(istringstream("700[kg]") >> z)
-    .CHECK_THROWS(istringstream("5[m]") >> y)
+    .CHECK_OK(istringstream("700[kg]") >> y)
+    .CHECK_OUTPUT(y,"700[kg]")
+    .CHECK_OK(istringstream("700[kg]") >> z)
+    .CHECK_OUTPUT(z,"700[kg]")
+    .CHECK_OK(istringstream("5[m]") >> y)
+    .CHECK_OUTPUT(y,"5[m]")
 
 
 
