@@ -1,2 +1,2 @@
 # PhysicalNumber-cpp
-Authors: Netanel Davidov, Maxim Marmar
+Authors: Netanel Davidov, Maxim Marmer
