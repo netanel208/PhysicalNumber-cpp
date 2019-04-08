@@ -11,28 +11,31 @@ namespace ariel{
     class PhysicalNumber{
         public:
 
-        //constructors
+        //constructor
         PhysicalNumber(double amount, Unit unit){
             this->amount = amount;
             this->unit = unit;
         }
 
         //operators
-        const PhysicalNumber operator+(const PhysicalNumber& other) ;
-        const PhysicalNumber operator-(const PhysicalNumber& other) ;
+        PhysicalNumber operator+(const PhysicalNumber& other) ;
+        PhysicalNumber operator-(const PhysicalNumber& other) ;
 
-        PhysicalNumber& operator+=(const PhysicalNumber& other) ;//need return refernce ++
-        PhysicalNumber& operator-=(const PhysicalNumber& other) ;//need return refernce ++
+        PhysicalNumber& operator+=(const PhysicalNumber& other) ;
+        PhysicalNumber& operator-=(const PhysicalNumber& other) ;
 
-        const PhysicalNumber operator+() ;                            //need return refernce -- 
-        const PhysicalNumber operator-() ;                            //need return refernce --
+        const PhysicalNumber operator+() ;                       
+        const PhysicalNumber operator-() ;                       
 
-        PhysicalNumber& operator++() ;                           //need return refernce ++
-        PhysicalNumber& operator--() ;                           //need return refernce ++
+        PhysicalNumber& operator++() ;                           
+        PhysicalNumber& operator--() ;                           
 
-        const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;//need return refernce --
-        const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;//need return refernce --
+        const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;
+        const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;
         
+        
+
+        //friend methodes
         friend bool operator== (const PhysicalNumber& p1, const PhysicalNumber& p2);
         friend bool operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2);
         friend bool operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2);
@@ -40,8 +43,6 @@ namespace ariel{
         friend bool operator< (const PhysicalNumber& p1, const PhysicalNumber& p2);
         friend bool operator> (const PhysicalNumber& p1, const PhysicalNumber& p2);
 
-
-        //friend methodes
         friend ostream& operator<< (ostream& os, const PhysicalNumber& other);
         friend istream& operator>> (istream& os, PhysicalNumber& other);
         
