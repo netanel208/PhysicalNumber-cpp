@@ -116,7 +116,8 @@ const PhysicalNumber ariel::PhysicalNumber::operator-() {
 };
 
 const PhysicalNumber ariel::PhysicalNumber::operator+() {
-    return PhysicalNumber(std::abs(this->amount), this->unit);
+    PhysicalNumber res = PhysicalNumber(std::abs(this->amount), this->unit); 
+    return 
 };
 
 PhysicalNumber& ariel::PhysicalNumber::operator++() {
