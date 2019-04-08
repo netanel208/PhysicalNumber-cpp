@@ -33,12 +33,12 @@ namespace ariel{
         const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;//need return refernce --
         const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;//need return refernce --
         
-        const bool operator== (const PhysicalNumber& other);
-        const bool operator!= (const PhysicalNumber& other);
-        const bool operator<= (const PhysicalNumber& other);
-        const bool operator>= (const PhysicalNumber& other);
-        const bool operator< (const PhysicalNumber& other);
-        const bool operator> (const PhysicalNumber& other);
+        friend bool operator== (const PhysicalNumber& p1, const PhysicalNumber& p2);
+        friend bool operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+        friend bool operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+        friend bool operator>= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+        friend bool operator< (const PhysicalNumber& p1, const PhysicalNumber& p2);
+        friend bool operator> (const PhysicalNumber& p1, const PhysicalNumber& p2);
 
 
         //friend methodes
@@ -51,7 +51,13 @@ namespace ariel{
         double amount;
         Unit unit;
     };
-ostream& operator<< (ostream& os, const PhysicalNumber& other);
-istream& operator>> (istream& os, PhysicalNumber& other);
-
+    
+    ostream& operator<< (ostream& os, const PhysicalNumber& other);
+    istream& operator>> (istream& os, PhysicalNumber& other);
+    bool operator== (const PhysicalNumber& p1, const PhysicalNumber& p2);
+    bool operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+    bool operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+    bool operator>= (const PhysicalNumber& p1, const PhysicalNumber& p2);
+    bool operator< (const PhysicalNumber& p1, const PhysicalNumber& p2);
+    bool operator> (const PhysicalNumber& p1, const PhysicalNumber& p2);
 }
