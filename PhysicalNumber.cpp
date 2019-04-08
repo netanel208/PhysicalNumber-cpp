@@ -1,12 +1,14 @@
 #include "PhysicalNumber.h"
+// #include <stdexcept>
 using namespace ariel;
 
 //operators
         const PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
             return other;
         };
-        const PhysicalNumber ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
-            return other;
+        //need to add refernce
+        PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
+            return *this;
         };
         const PhysicalNumber ariel::PhysicalNumber::operator+() {
             PhysicalNumber p(1,Unit::KM);
@@ -16,30 +18,54 @@ using namespace ariel;
             PhysicalNumber p(1,Unit::KM);
             return p;
         };
-        const PhysicalNumber ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
-            PhysicalNumber p(1,Unit::KM);
+        //need to add refernce
+        PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
+            int this_type = ((int)this->unit - 1) / 3;
+            int other_type = ((int)other.unit - 1) / 3;
+            if(this_type != other_type){
+                throw std::out_of_range{"Error: can't diclaire number with differents type..."};
+            }
+            else{
+
+                Unit thisu = this->unit;
+                int u = converto()
+
+                base(unit )
+                base(unit )
+
+                convertfrom(,)
+
+
+            }
             return p;
         };
         const PhysicalNumber ariel::PhysicalNumber::operator-() {
             PhysicalNumber p(1,Unit::KM);
             return p;
         };
-        const PhysicalNumber ariel::PhysicalNumber::operator++() {
-            PhysicalNumber p(1,Unit::KM);
-            return p;
+        ////////////////////////////////////////////////////
+        PhysicalNumber& ariel::PhysicalNumber::operator++() {
+            amount++;
+            return *this;
         };
-        const PhysicalNumber ariel::PhysicalNumber::operator--() {
-            PhysicalNumber p(1,Unit::KM);
-            return p;
+        ////////////////////////////////////////////////////
+        PhysicalNumber& ariel::PhysicalNumber::operator--() {
+            amount--;
+            return *this;
         };
+        ////////////////////////////////////////////////////
         const PhysicalNumber ariel::PhysicalNumber::operator++(int dummy_flag_for_postfix_increment) {
-            PhysicalNumber p(1,Unit::KM);
-            return p;
+            PhysicalNumber copy = *this;
+            amount++;
+            return copy;
         };
+        ////////////////////////////////////////////////////
         const PhysicalNumber ariel::PhysicalNumber::operator--(int dummy_flag_for_postfix_increment) {
-            PhysicalNumber p(1,Unit::KM);
-            return p;
+            PhysicalNumber copy = *this;
+            amount--;
+            return copy;
         };
+        
         const bool ariel::PhysicalNumber::operator== (const PhysicalNumber& other){
             return true;
         };
@@ -87,6 +113,7 @@ using namespace ariel;
         return (os << other.amount <<"[" << unit << "]"<< endl);
     };
     
+   
     
     /**
      * this function check unit input correct
@@ -154,13 +181,13 @@ using namespace ariel;
         }
         else{
             string tempUnit = str.substr(str.length() - unitSize - 1, unitSize);
-            if(!tempUnit.compare("CM")){ unit = (int)Unit::CM; }
-            if(!tempUnit.compare("M")){ unit = (int)Unit::M; }
-            if(!tempUnit.compare("KM")){ unit = (int)Unit::KM; }
+            if(!tempUnit.compare("cm")){ unit = (int)Unit::CM; }
+            if(!tempUnit.compare("m")){ unit = (int)Unit::M; }
+            if(!tempUnit.compare("km")){ unit = (int)Unit::KM; }
             if(!tempUnit.compare("sec")){ unit = (int)Unit::SEC; }
             if(!tempUnit.compare("min")){ unit = (int)Unit::MIN; }
-            if(!tempUnit.compare("HOUR")){ unit = (int)Unit::HOUR; }
-            if(!tempUnit.compare("G")){ unit = (int)Unit::G; }
+            if(!tempUnit.compare("hour")){ unit = (int)Unit::HOUR; }
+            if(!tempUnit.compare("g")){ unit = (int)Unit::G; }
             if(!tempUnit.compare("kg")){ unit = (int)Unit::KG; }
             if(!tempUnit.compare("ton")){ unit = (int)Unit::TON; }
         }
@@ -241,4 +268,4 @@ using namespace ariel;
         }
 
         return input;
-    } 
+    } ;

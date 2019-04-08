@@ -19,15 +19,20 @@ namespace ariel{
 
         //operators
         const PhysicalNumber operator+(const PhysicalNumber& other) ;
-        const PhysicalNumber operator+=(const PhysicalNumber& other) ;
-        const PhysicalNumber operator+() ;
         const PhysicalNumber operator-(const PhysicalNumber& other) ;
-        const PhysicalNumber operator-=(const PhysicalNumber& other) ;
-        const PhysicalNumber operator-() ;
-        const PhysicalNumber operator++() ;
-        const PhysicalNumber operator--() ;
-        const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;
-        const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;
+
+        PhysicalNumber& operator+=(const PhysicalNumber& other) ;//need return refernce ++
+        PhysicalNumber& operator-=(const PhysicalNumber& other) ;//need return refernce ++
+
+        const PhysicalNumber operator+() ;                            //need return refernce -- 
+        const PhysicalNumber operator-() ;                            //need return refernce --
+
+        PhysicalNumber& operator++() ;                           //need return refernce ++
+        PhysicalNumber& operator--() ;                           //need return refernce ++
+
+        const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;//need return refernce --
+        const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;//need return refernce --
+        
         const bool operator== (const PhysicalNumber& other);
         const bool operator!= (const PhysicalNumber& other);
         const bool operator<= (const PhysicalNumber& other);
@@ -46,4 +51,7 @@ namespace ariel{
         double amount;
         Unit unit;
     };
+ostream& operator<< (ostream& os, const PhysicalNumber& other);
+istream& operator>> (istream& os, PhysicalNumber& other);
+
 }
