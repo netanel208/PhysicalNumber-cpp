@@ -30,8 +30,8 @@ namespace ariel{
         PhysicalNumber& operator++() ;                           
         PhysicalNumber& operator--() ;                           
 
-        const PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;
-        const PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;
+        PhysicalNumber operator++(int dummy_flag_for_postfix_increment) ;
+        PhysicalNumber operator--(int dummy_flag_for_postfix_increment) ;
         
         
 

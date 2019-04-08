@@ -130,12 +130,12 @@ PhysicalNumber& ariel::PhysicalNumber::operator--() {
     amount--;
     return *this;
 };
-const PhysicalNumber ariel::PhysicalNumber::operator++(int dummy_flag_for_postfix_increment) {
+PhysicalNumber ariel::PhysicalNumber::operator++(int dummy_flag_for_postfix_increment) {
     PhysicalNumber copy = *this;
     amount++;
     return copy;
 };
-const PhysicalNumber ariel::PhysicalNumber::operator--(int dummy_flag_for_postfix_increment) {
+PhysicalNumber ariel::PhysicalNumber::operator--(int dummy_flag_for_postfix_increment) {
     PhysicalNumber copy = *this;
     amount--;
     return copy;
