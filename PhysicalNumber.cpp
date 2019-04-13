@@ -1,13 +1,21 @@
 #include "PhysicalNumber.h"
 using namespace ariel;
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////Auxiliary functions/////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * this  function check if Unit a is same type of Unit b
+ */
 bool isSameType(Unit a, Unit b){
     int this_type = ((int)a - 1) / 3;
     int other_type = ((int)b - 1) / 3;
     return this_type == other_type;
 }
 
+/**
+ * this function return the basic Unit of u
+ */ 
 double base(double value, Unit u){
     if(u == Unit::CM || u == Unit::SEC || u == Unit::G){
         return value;
@@ -32,6 +40,9 @@ double base(double value, Unit u){
     }
 }
 
+/**
+ * this function return the actual Unit (from the begining)
+ */ 
 double returnToThisUnit(double value, Unit u){
     if(u == Unit::CM || u == Unit::SEC || u == Unit::G){
         return value;
@@ -55,180 +66,6 @@ double returnToThisUnit(double value, Unit u){
         return result;
     }
 }
-
-//operators
-PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
-    if(!isSameType(this->unit, other.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-    else{
-        double thisAmount = base(this->amount, this->unit);
-        double otherAmount = base(other.amount, other.unit);
-        thisAmount += otherAmount;
-        thisAmount = returnToThisUnit(thisAmount, this->unit);
-        return PhysicalNumber(thisAmount, this->unit);
-    }
-};
-
-PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& other) {
-    if(!isSameType(this->unit, other.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-    else{
-        double thisAmount = base(this->amount, this->unit);
-        double otherAmount = base(other.amount, other.unit);
-        thisAmount -= otherAmount;
-        thisAmount = returnToThisUnit(thisAmount, this->unit);
-        return PhysicalNumber(thisAmount, this->unit);
-    }
-};
-
-PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
-    if(!isSameType(this->unit, other.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-    else{
-        double thisAmount = base(this->amount, this->unit);
-        double otherAmount = base(other.amount, other.unit);
-        thisAmount += otherAmount;
-        thisAmount = returnToThisUnit(thisAmount, this->unit);
-        this->amount = thisAmount;
-    }
-    return *this;
-};
-
-PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
-    if(!isSameType(this->unit, other.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-    else{
-        double thisAmount = base(this->amount, this->unit);
-        double otherAmount = base(other.amount, other.unit);
-        thisAmount -= otherAmount;
-        thisAmount = returnToThisUnit(thisAmount, this->unit);
-        this->amount = thisAmount;
-    }
-    return *this;
-};
-
-const PhysicalNumber ariel::PhysicalNumber::operator-() {
-    return PhysicalNumber(-1*(this->amount), this->unit);
-};
-
-const PhysicalNumber ariel::PhysicalNumber::operator+() {
-    if(this->amount < 0)
-     return PhysicalNumber((-1)*this->amount, this->unit);
-    else
-     return PhysicalNumber(this->amount, this->unit);
-};
-
-PhysicalNumber& ariel::PhysicalNumber::operator++() {
-    amount++;
-    return *this;
-};
-PhysicalNumber& ariel::PhysicalNumber::operator--() {
-    amount--;
-    return *this;
-};
-PhysicalNumber ariel::PhysicalNumber::operator++(int dummy_flag_for_postfix_increment) {
-    PhysicalNumber copy = *this;
-    amount++;
-    return copy;
-};
-PhysicalNumber ariel::PhysicalNumber::operator--(int dummy_flag_for_postfix_increment) {
-    PhysicalNumber copy = *this;
-    amount--;
-    return copy;
-};
-
-
-bool ariel::operator== (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 == amount2;
-};
-
-bool ariel::operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 != amount2;
-};
-
-bool ariel::operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2){    
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 <= amount2;
-};
-
-bool ariel::operator>= (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 >= amount2;
-};
-bool ariel::operator< (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 < amount2;
-};
-bool ariel::operator> (const PhysicalNumber& p1, const PhysicalNumber& p2){
-    if(!isSameType(p1.unit, p2.unit)){
-        throw std::out_of_range{"Error: Numbers with differents type..."};
-    }
-
-    double amount1 = base(p1.amount, p1.unit);
-    double amount2 = base(p2.amount, p2.unit);
-    return amount1 > amount2;
-};
-
-/****************************************/
-/*             operator<<               */ 
-/****************************************/
-ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p) {
-    string unit = "";
-    switch(p.unit) {                //convert Unit to string
-        case Unit::CM : unit = "cm";
-        break;
-        case Unit::M : unit = "m";
-        break;
-        case Unit::KM : unit = "km";
-        break;
-        case Unit::SEC : unit = "sec";
-        break;
-        case Unit::MIN : unit = "min";
-        break;
-        case Unit::HOUR : unit = "hour";
-        break;
-        case Unit::G : unit = "g";
-        break;
-        case Unit::KG : unit = "kg";
-        break;
-        case Unit::TON : unit = "ton";
-        break;
-    }
-    return (os << p.amount << '[' << unit << ']');
-};
-
-
 
 /**
  * this function check unit input correct
@@ -346,6 +183,237 @@ double getAmount(string str){
     double value = stod(amount);//parsing
     return value;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////Operators//////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/****************************************/
+/*             operator+ (binary)       */ 
+/****************************************/
+PhysicalNumber ariel::PhysicalNumber::operator+(const PhysicalNumber& other) {
+    if(!isSameType(this->unit, other.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+    else{
+        double thisAmount = base(this->amount, this->unit);
+        double otherAmount = base(other.amount, other.unit);
+        thisAmount += otherAmount;
+        thisAmount = returnToThisUnit(thisAmount, this->unit);
+        return PhysicalNumber(thisAmount, this->unit);
+    }
+};
+
+/****************************************/
+/*             operator- (binary)       */ 
+/****************************************/
+PhysicalNumber ariel::PhysicalNumber::operator-(const PhysicalNumber& other) {
+    if(!isSameType(this->unit, other.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+    else{
+        double thisAmount = base(this->amount, this->unit);
+        double otherAmount = base(other.amount, other.unit);
+        thisAmount -= otherAmount;
+        thisAmount = returnToThisUnit(thisAmount, this->unit);
+        return PhysicalNumber(thisAmount, this->unit);
+    }
+};
+
+/****************************************/
+/*             operator+=               */ 
+/****************************************/
+PhysicalNumber& ariel::PhysicalNumber::operator+=(const PhysicalNumber& other) {
+    if(!isSameType(this->unit, other.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+    else{
+        double thisAmount = base(this->amount, this->unit);
+        double otherAmount = base(other.amount, other.unit);
+        thisAmount += otherAmount;
+        thisAmount = returnToThisUnit(thisAmount, this->unit);
+        this->amount = thisAmount;
+    }
+    return *this;
+};
+
+/****************************************/
+/*             operator-=               */ 
+/****************************************/
+PhysicalNumber& ariel::PhysicalNumber::operator-=(const PhysicalNumber& other) {
+    if(!isSameType(this->unit, other.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+    else{
+        double thisAmount = base(this->amount, this->unit);
+        double otherAmount = base(other.amount, other.unit);
+        thisAmount -= otherAmount;
+        thisAmount = returnToThisUnit(thisAmount, this->unit);//return to left Unit
+        this->amount = thisAmount;
+    }
+    return *this;
+};
+
+/****************************************/
+/*             operator- (unary)        */ 
+/****************************************/
+const PhysicalNumber ariel::PhysicalNumber::operator-() {
+    return PhysicalNumber(-1*(this->amount), this->unit);
+};
+
+/****************************************/
+/*             operator+ (unary)        */ 
+/****************************************/
+const PhysicalNumber ariel::PhysicalNumber::operator+() {
+    if(this->amount < 0)
+     return PhysicalNumber((-1)*this->amount, this->unit);
+    else
+     return PhysicalNumber(this->amount, this->unit);
+};
+
+/****************************************/
+/*             operator++ (prefix)      */ 
+/****************************************/
+PhysicalNumber& ariel::PhysicalNumber::operator++() {
+    amount++;
+    return *this;
+};
+
+/****************************************/
+/*             operator-- (prefix)      */ 
+/****************************************/
+PhysicalNumber& ariel::PhysicalNumber::operator--() {
+    amount--;
+    return *this;
+};
+
+/****************************************/
+/*             operator++ (postfix)     */ 
+/****************************************/
+PhysicalNumber ariel::PhysicalNumber::operator++(int dummy_flag_for_postfix_increment) {
+    PhysicalNumber copy = *this;
+    amount++;
+    return copy;
+};
+
+/****************************************/
+/*             operator-- (postfix)     */ 
+/****************************************/
+PhysicalNumber ariel::PhysicalNumber::operator--(int dummy_flag_for_postfix_increment) {
+    PhysicalNumber copy = *this;
+    amount--;
+    return copy;
+};
+
+/****************************************/
+/*             operator==               */ 
+/****************************************/
+bool ariel::operator== (const PhysicalNumber& p1, const PhysicalNumber& p2){
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 == amount2;
+};
+
+/****************************************/
+/*             operator!=               */ 
+/****************************************/
+bool ariel::operator!= (const PhysicalNumber& p1, const PhysicalNumber& p2){
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 != amount2;
+};
+
+/****************************************/
+/*             operator<=               */ 
+/****************************************/
+bool ariel::operator<= (const PhysicalNumber& p1, const PhysicalNumber& p2){    
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 <= amount2;
+};
+
+/****************************************/
+/*             operator>=               */ 
+/****************************************/
+bool ariel::operator>= (const PhysicalNumber& p1, const PhysicalNumber& p2){
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 >= amount2;
+};
+
+/****************************************/
+/*             operator<                */ 
+/****************************************/
+bool ariel::operator< (const PhysicalNumber& p1, const PhysicalNumber& p2){
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 < amount2;
+};
+
+/****************************************/
+/*             operator>                */ 
+/****************************************/
+bool ariel::operator> (const PhysicalNumber& p1, const PhysicalNumber& p2){
+    if(!isSameType(p1.unit, p2.unit)){
+        throw std::out_of_range{"Error: Numbers with differents type..."};
+    }
+
+    double amount1 = base(p1.amount, p1.unit);
+    double amount2 = base(p2.amount, p2.unit);
+    return amount1 > amount2;
+};
+
+/****************************************/
+/*             operator<<               */ 
+/****************************************/
+ostream& ariel::operator<< (ostream& os, const PhysicalNumber& p) {
+    string unit = "";
+    switch(p.unit) {                //convert Unit to string
+        case Unit::CM : unit = "cm";
+        break;
+        case Unit::M : unit = "m";
+        break;
+        case Unit::KM : unit = "km";
+        break;
+        case Unit::SEC : unit = "sec";
+        break;
+        case Unit::MIN : unit = "min";
+        break;
+        case Unit::HOUR : unit = "hour";
+        break;
+        case Unit::G : unit = "g";
+        break;
+        case Unit::KG : unit = "kg";
+        break;
+        case Unit::TON : unit = "ton";
+        break;
+    }
+    return (os << p.amount << '[' << unit << ']');
+};
+
+
+
+
 
 /****************************************/
 /*             operator>>               */ 
